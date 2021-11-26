@@ -53,8 +53,8 @@ static inline void MoveObjectInArray(NSMutableArray *mutableArray, NSUInteger at
 
 - (void)runModal {
     if (!_isRunningModal) {
-        [[NSApplication sharedApplication] runModalForWindow:[self window]];
         _isRunningModal = YES;
+        [[NSApplication sharedApplication] runModalForWindow:[self window]];
     }
 }
 

@@ -36,7 +36,7 @@
     NSMutableDictionary <NSString *, NSNumber *> *mutableDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     NSUInteger currentSortID = 0;
     for (ROPPalettePlugin *plugin in plugins) {
-        [mutableDictionary setObject:[NSNumber numberWithUnsignedInteger:currentSortID] forKey:[plugin identifier]];
+        [mutableDictionary setObject:[NSNumber numberWithUnsignedInteger:currentSortID] forKey:[plugin className]];
         currentSortID += 10;
     }
     return [mutableDictionary copy];
@@ -71,12 +71,12 @@
 }
 
 - (NSUInteger)hash {
-    return [_identifier hash];
+    return [_className hash];
 }
 
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[self class]]) {
-        if ([[object identifier] isEqualToString:[self identifier]]) {
+        if ([[object className] isEqualToString:[self className]]) {
             return YES;
         }
     }

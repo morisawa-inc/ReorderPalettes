@@ -18,14 +18,21 @@ static NSString * ReorderPalettesPluginBundleIdentifier = nil;
 typedef NSUInteger (*GlyphsPaletteSortIDFunction)(id<GlyphsPalette>, SEL);
 static NSDictionary<NSString *, NSValue *> *ReorderPalettesPluginOriginalSortIDFunctionDictionary = nil;
 
+static NSArray<NSString *> * ReorderPalettesPluginMakeKeysFromPalettePluginInstance(id<GlyphsPalette> instance) {
+    NSString *className = NSStringFromClass([(NSObject *)instance class]);
+    NSString *bundleIdentifier = [[NSBundle bundleForClass:[(NSObject *)instance class]] bundleIdentifier];
+    return @[className, bundleIdentifier];
+}
+
 static NSUInteger ReorderPalettesPluginGlyphsPaletteSortID(id<GlyphsPalette>self, SEL _cmd) {
     if (ReorderPalettesPluginBundleIdentifier) {
         if ([[ROPPalettePluginManager sharedManager] isEnabled]) {
             NSDictionary<NSString *, NSNumber *> *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:ReorderPalettesPluginBundleIdentifier];
             if (dictionary) {
-                NSString *bundleIdentifier = [[NSBundle bundleForClass:[(NSObject *)self class]] bundleIdentifier];
-                NSNumber *number = [dictionary objectForKey:bundleIdentifier];
-                if (number) return [number unsignedIntegerValue];
+                for (NSString *key in ReorderPalettesPluginMakeKeysFromPalettePluginInstance(self)) {
+                    NSNumber *number = [dictionary objectForKey:key];
+                    if (number) return [number unsignedIntegerValue];
+                }
             }
         }
     }

@@ -18,9 +18,16 @@ static NSString * ReorderPalettesPluginBundleIdentifier = nil;
 typedef NSUInteger (*GlyphsPaletteSortIDFunction)(id<GlyphsPalette>, SEL);
 static NSDictionary<NSString *, NSValue *> *ReorderPalettesPluginOriginalSortIDFunctionDictionary = nil;
 
+static NSBundle * GetCorrespondingBundleForInstance(id instance, NSArray<NSBundle *> *bundles) {
+    for (NSBundle *bundle in bundles) {
+        if ([instance isMemberOfClass:[bundle principalClass]]) return bundle;
+    }
+    return nil;
+}
+
 static NSArray<NSString *> * ReorderPalettesPluginMakeKeysFromPalettePluginInstance(id<GlyphsPalette> instance) {
     NSString *className = NSStringFromClass([(NSObject *)instance class]);
-    NSString *bundleIdentifier = [[NSBundle bundleForClass:[(NSObject *)instance class]] bundleIdentifier];
+    NSString *bundleIdentifier = [GetCorrespondingBundleForInstance(instance, [ROPPalettePlugin availablePaletteBundles]) bundleIdentifier];
     return @[className, bundleIdentifier];
 }
 

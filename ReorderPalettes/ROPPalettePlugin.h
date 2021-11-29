@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, ROPPalettePluginEnumeratingOptions) {
 + (NSDictionary<NSString *, NSNumber *> *)dictionaryFromPalettePlugins:(NSArray<ROPPalettePlugin *> *)plugins;
 
 - (instancetype)initWithInstance:(id<GlyphsPalette>)instance options:(ROPPalettePluginEnumeratingOptions)options;
+- (instancetype)initWithInstance:(id<GlyphsPalette>)instance options:(ROPPalettePluginEnumeratingOptions)options bundles:(NSArray<NSBundle *> *)bundles;
 - (instancetype)initWithTitle:(NSString *)title identifier:(NSString *)identifier className:(NSString *)className sortID:(NSUInteger)sortID;
 
 - (NSComparisonResult)compare:(ROPPalettePlugin *)object;

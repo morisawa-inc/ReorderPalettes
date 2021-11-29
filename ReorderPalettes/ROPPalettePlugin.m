@@ -10,6 +10,13 @@
 #import "ROPPalettePluginManager.h"
 #import <GlyphsCore/GlyphsPaletteProtocol.h>
 
+static NSBundle * GetCorrespondingBundleForInstance(id instance, NSArray<NSBundle *> *bundles) {
+    for (NSBundle *bundle in bundles) {
+        if ([instance isMemberOfClass:[bundle principalClass]]) return bundle;
+    }
+    return nil;
+}
+
 @protocol GSMenuProtocol <NSObject>
 - (NSMutableArray<NSBundle *> *)paletteBundles;
 @end
@@ -26,7 +33,7 @@
     for (NSBundle *bundle in [delegate paletteBundles]) {
         NSObject<GlyphsPalette> *instance = [[[bundle principalClass] alloc] init];
         if ([instance respondsToSelector:@selector(loadPlugin)]) [instance loadPlugin];
-        [mutablePlugins addObject:[[[self class] alloc] initWithInstance:instance options:options]];
+        [mutablePlugins addObject:[[[self class] alloc] initWithInstance:instance options:options bundles:[delegate paletteBundles]]];
     }
     [mutablePlugins sortUsingSelector:@selector(compare:)];
     return [mutablePlugins copy];
@@ -49,6 +56,18 @@
     NSUInteger sortID = [(NSObject *)instance respondsToSelector:@selector(sortID)] ? [instance sortID] : 0;
     [[ROPPalettePluginManager sharedManager] setEnabled:enabled];
     if ((self = [self initWithTitle:title identifier:[[NSBundle bundleForClass:[(NSObject *)instance class]] bundleIdentifier] className:NSStringFromClass([(NSObject *)instance class]) sortID:sortID])) {
+        
+    }
+    return self;
+}
+
+- (instancetype)initWithInstance:(id<GlyphsPalette>)instance options:(ROPPalettePluginEnumeratingOptions)options bundles:(NSArray<NSBundle *> *)bundles {
+    BOOL enabled = [[ROPPalettePluginManager sharedManager] isEnabled];
+    if (options & ROPPalettePluginEnumeratingOptionsPreferOriginalSortID) [[ROPPalettePluginManager sharedManager] setEnabled:NO];
+    NSString *title = [(NSObject *)instance respondsToSelector:@selector(title)] ? [instance title] : @"";
+    NSUInteger sortID = [(NSObject *)instance respondsToSelector:@selector(sortID)] ? [instance sortID] : 0;
+    [[ROPPalettePluginManager sharedManager] setEnabled:enabled];
+    if ((self = [self initWithTitle:title identifier:[GetCorrespondingBundleForInstance(instance, bundles) bundleIdentifier] className:NSStringFromClass([(NSObject *)instance class]) sortID:sortID])) {
         
     }
     return self;

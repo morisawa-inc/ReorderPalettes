@@ -108,13 +108,19 @@ static inline void ReorderPalettesPluginSwizzleMethods(Class cls, SEL selector, 
     }
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-    NSMutableDictionary<Class, NSValue *> *mutableOriginalSortIDFunctionDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    NSMutableDictionary<NSString *, NSValue *> *mutableOriginalSortIDFunctionDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     for (NSBundle *bundle in [ROPPalettePlugin availablePaletteBundles]) {
         [bundle load];
-        GlyphsPaletteSortIDFunction originalGlyphsPaletteSortID = NULL;
-        ReorderPalettesPluginSwizzleMethods([bundle principalClass], @selector(sortID), (IMP)ReorderPalettesPluginGlyphsPaletteSortID, (IMP *)&originalGlyphsPaletteSortID);
-        if (originalGlyphsPaletteSortID) {
-            [mutableOriginalSortIDFunctionDictionary setObject:[NSValue valueWithPointer:originalGlyphsPaletteSortID] forKey:NSStringFromClass([bundle principalClass])];
+        Class principalClass = [bundle principalClass];
+        if (principalClass) {
+            NSString *className = NSStringFromClass(principalClass);
+            if (className && [mutableOriginalSortIDFunctionDictionary objectForKey:className]) {
+                GlyphsPaletteSortIDFunction originalGlyphsPaletteSortID = NULL;
+                ReorderPalettesPluginSwizzleMethods([bundle principalClass], @selector(sortID), (IMP)ReorderPalettesPluginGlyphsPaletteSortID, (IMP *)&originalGlyphsPaletteSortID);
+                if (originalGlyphsPaletteSortID) {
+                    [mutableOriginalSortIDFunctionDictionary setObject:[NSValue valueWithPointer:originalGlyphsPaletteSortID] forKey:className];
+                }
+            }
         }
     }
     ReorderPalettesPluginOriginalSortIDFunctionDictionary = [mutableOriginalSortIDFunctionDictionary copy];

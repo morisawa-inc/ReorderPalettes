@@ -30,10 +30,18 @@ static NSBundle * GetCorrespondingBundleForInstance(id instance, NSArray<NSBundl
 + (NSArray<ROPPalettePlugin *> *)availablePalettePluginsWithOptions:(ROPPalettePluginEnumeratingOptions)options {
     NSMutableArray <ROPPalettePlugin *> *mutablePlugins = [[NSMutableArray alloc] initWithCapacity:0];
     id<GSMenuProtocol> delegate = (id<GSMenuProtocol>)[[NSApplication sharedApplication] delegate];
+    NSMutableSet<NSString *> *mutableClassNames = [[NSMutableSet alloc] initWithCapacity:0];
     for (NSBundle *bundle in [delegate paletteBundles]) {
-        NSObject<GlyphsPalette> *instance = [[[bundle principalClass] alloc] init];
-        if ([instance respondsToSelector:@selector(loadPlugin)]) [instance loadPlugin];
-        [mutablePlugins addObject:[[[self class] alloc] initWithInstance:instance options:options bundles:[delegate paletteBundles]]];
+        Class principalClass = [bundle principalClass];
+        if (principalClass) {
+            NSString *className = NSStringFromClass(principalClass);
+            if (className && ![mutableClassNames containsObject:className]) {
+                NSObject<GlyphsPalette> *instance = [[principalClass alloc] init];
+                if ([instance respondsToSelector:@selector(loadPlugin)]) [instance loadPlugin];
+                [mutablePlugins addObject:[[[self class] alloc] initWithInstance:instance options:options bundles:[delegate paletteBundles]]];
+                [mutableClassNames addObject:className];
+            }
+        }
     }
     [mutablePlugins sortUsingSelector:@selector(compare:)];
     return [mutablePlugins copy];

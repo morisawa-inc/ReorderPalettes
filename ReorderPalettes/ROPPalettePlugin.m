@@ -38,8 +38,11 @@ static NSBundle * GetCorrespondingBundleForInstance(id instance, NSArray<NSBundl
             if (className && ![mutableClassNames containsObject:className]) {
                 NSObject<GlyphsPalette> *instance = [[principalClass alloc] init];
                 if ([instance respondsToSelector:@selector(loadPlugin)]) [instance loadPlugin];
-                [mutablePlugins addObject:[[[self class] alloc] initWithInstance:instance options:options bundles:[delegate paletteBundles]]];
-                [mutableClassNames addObject:className];
+                ROPPalettePlugin *plugin = [[[self class] alloc] initWithInstance:instance options:options bundles:[delegate paletteBundles]];
+                if (plugin) {
+                    [mutablePlugins addObject:plugin];
+                    [mutableClassNames addObject:className];
+                }
             }
         }
     }
@@ -51,22 +54,32 @@ static NSBundle * GetCorrespondingBundleForInstance(id instance, NSArray<NSBundl
     NSMutableDictionary <NSString *, NSNumber *> *mutableDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     NSUInteger currentSortID = 0;
     for (ROPPalettePlugin *plugin in plugins) {
-        [mutableDictionary setObject:[NSNumber numberWithUnsignedInteger:currentSortID] forKey:[plugin className]];
-        currentSortID += 10;
+        if ([plugin className]) {
+            [mutableDictionary setObject:[NSNumber numberWithUnsignedInteger:currentSortID] forKey:[plugin className]];
+            currentSortID += 10;
+        }
     }
     return [mutableDictionary copy];
 }
 
 - (instancetype)initWithInstance:(id<GlyphsPalette>)instance options:(ROPPalettePluginEnumeratingOptions)options bundles:(NSArray<NSBundle *> *)bundles {
-    BOOL enabled = [[ROPPalettePluginManager sharedManager] isEnabled];
-    if (options & ROPPalettePluginEnumeratingOptionsPreferOriginalSortID) [[ROPPalettePluginManager sharedManager] setEnabled:NO];
-    NSString *title = [(NSObject *)instance respondsToSelector:@selector(title)] ? [instance title] : @"";
-    NSUInteger sortID = [(NSObject *)instance respondsToSelector:@selector(sortID)] ? [instance sortID] : 0;
-    [[ROPPalettePluginManager sharedManager] setEnabled:enabled];
-    if ((self = [self initWithTitle:title identifier:[GetCorrespondingBundleForInstance(instance, bundles) bundleIdentifier] className:NSStringFromClass([(NSObject *)instance class]) sortID:sortID])) {
-        
+    Class class = [(NSObject *)instance class];
+    if (class) {
+        NSString *className = NSStringFromClass([(NSObject *)instance class]);
+        NSString *identifier = [GetCorrespondingBundleForInstance(instance, bundles) bundleIdentifier];
+        if (className && identifier) {
+            BOOL enabled = [[ROPPalettePluginManager sharedManager] isEnabled];
+            if (options & ROPPalettePluginEnumeratingOptionsPreferOriginalSortID) [[ROPPalettePluginManager sharedManager] setEnabled:NO];
+            NSString *title = [(NSObject *)instance respondsToSelector:@selector(title)] ? [instance title] : @"";
+            NSUInteger sortID = [(NSObject *)instance respondsToSelector:@selector(sortID)] ? [instance sortID] : 0;
+            [[ROPPalettePluginManager sharedManager] setEnabled:enabled];
+            if ((self = [self initWithTitle:title identifier:identifier className:className sortID:sortID])) {
+                
+            }
+            return self;
+        }
     }
-    return self;
+    return nil;
 }
 
 - (instancetype)initWithTitle:(NSString *)title identifier:(NSString *)identifier className:(NSString *)className sortID:(NSUInteger)sortID {

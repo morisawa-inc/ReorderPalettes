@@ -57,18 +57,6 @@ static NSBundle * GetCorrespondingBundleForInstance(id instance, NSArray<NSBundl
     return [mutableDictionary copy];
 }
 
-- (instancetype)initWithInstance:(id<GlyphsPalette>)instance options:(ROPPalettePluginEnumeratingOptions)options {
-    BOOL enabled = [[ROPPalettePluginManager sharedManager] isEnabled];
-    if (options & ROPPalettePluginEnumeratingOptionsPreferOriginalSortID) [[ROPPalettePluginManager sharedManager] setEnabled:NO];
-    NSString *title = [(NSObject *)instance respondsToSelector:@selector(title)] ? [instance title] : @"";
-    NSUInteger sortID = [(NSObject *)instance respondsToSelector:@selector(sortID)] ? [instance sortID] : 0;
-    [[ROPPalettePluginManager sharedManager] setEnabled:enabled];
-    if ((self = [self initWithTitle:title identifier:[[NSBundle bundleForClass:[(NSObject *)instance class]] bundleIdentifier] className:NSStringFromClass([(NSObject *)instance class]) sortID:sortID])) {
-        
-    }
-    return self;
-}
-
 - (instancetype)initWithInstance:(id<GlyphsPalette>)instance options:(ROPPalettePluginEnumeratingOptions)options bundles:(NSArray<NSBundle *> *)bundles {
     BOOL enabled = [[ROPPalettePluginManager sharedManager] isEnabled];
     if (options & ROPPalettePluginEnumeratingOptionsPreferOriginalSortID) [[ROPPalettePluginManager sharedManager] setEnabled:NO];

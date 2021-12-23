@@ -114,7 +114,7 @@ static inline void ReorderPalettesPluginSwizzleMethods(Class cls, SEL selector, 
         Class principalClass = [bundle principalClass];
         if (principalClass) {
             NSString *className = NSStringFromClass(principalClass);
-            if (className && [mutableOriginalSortIDFunctionDictionary objectForKey:className]) {
+            if (className && ![mutableOriginalSortIDFunctionDictionary objectForKey:className]) {
                 GlyphsPaletteSortIDFunction originalGlyphsPaletteSortID = NULL;
                 ReorderPalettesPluginSwizzleMethods([bundle principalClass], @selector(sortID), (IMP)ReorderPalettesPluginGlyphsPaletteSortID, (IMP *)&originalGlyphsPaletteSortID);
                 if (originalGlyphsPaletteSortID) {

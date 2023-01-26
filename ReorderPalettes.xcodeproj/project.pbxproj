@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E74712B8296FF781001D2ABA /* ReorderPalettesPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = E7CCE8431DC7424900C31BEF /* ReorderPalettesPlugin.m */; };
+		E74712B9296FF781001D2ABA /* ROPWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A40B792716C0D3001637D7 /* ROPWindowController.m */; };
+		E74712BA296FF781001D2ABA /* ROPTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A40B8827193999001637D7 /* ROPTableColumn.m */; };
+		E74712BB296FF781001D2ABA /* ROPPalettePluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A40B83271934EE001637D7 /* ROPPalettePluginManager.m */; };
+		E74712BC296FF781001D2ABA /* ROPPalettePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A40B742716001F001637D7 /* ROPPalettePlugin.m */; };
+		E74712BE296FF781001D2ABA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CCE83B1DC7424900C31BEF /* Cocoa.framework */; };
+		E74712C1296FF781001D2ABA /* ROPWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A40B7A2716C0D3001637D7 /* ROPWindowController.xib */; };
+		E74712D5296FFB5B001D2ABA /* GlyphsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E74712D4296FFB5B001D2ABA /* GlyphsCore.framework */; };
 		E797BA011E0A603200AF08E1 /* GlyphsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7CCE8461DC7424900C31BEF /* GlyphsCore.framework */; };
 		E7A40B752716001F001637D7 /* ROPPalettePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A40B742716001F001637D7 /* ROPPalettePlugin.m */; };
 		E7A40B7B2716C0D3001637D7 /* ROPWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A40B792716C0D3001637D7 /* ROPWindowController.m */; };
@@ -18,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E74712C5296FF781001D2ABA /* ReorderPalettes.glyphsPlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReorderPalettes.glyphsPlugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		E74712D4296FFB5B001D2ABA /* GlyphsCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GlyphsCore.framework; path = "/Applications/Glyphs 3.app/Contents/Frameworks/GlyphsCore.framework"; sourceTree = "<absolute>"; };
 		E7A40B732716001F001637D7 /* ROPPalettePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ROPPalettePlugin.h; sourceTree = "<group>"; };
 		E7A40B742716001F001637D7 /* ROPPalettePlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ROPPalettePlugin.m; sourceTree = "<group>"; };
 		E7A40B782716C0D3001637D7 /* ROPWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ROPWindowController.h; sourceTree = "<group>"; };
@@ -36,6 +46,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E74712BD296FF781001D2ABA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E74712D5296FFB5B001D2ABA /* GlyphsCore.framework in Frameworks */,
+				E74712BE296FF781001D2ABA /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E7CCE8351DC7424900C31BEF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -61,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				E7CCE8381DC7424900C31BEF /* ReorderPalettes.glyphsPlugin */,
+				E74712C5296FF781001D2ABA /* ReorderPalettes.glyphsPlugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				E7CCE8481DC7424900C31BEF /* Info.plist */,
+				E74712D4296FFB5B001D2ABA /* GlyphsCore.framework */,
 				E7CCE8461DC7424900C31BEF /* GlyphsCore.framework */,
 			);
 			name = "Supporting Files";
@@ -104,9 +125,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E7CCE8371DC7424900C31BEF /* ReorderPalettes */ = {
+		E74712B6296FF781001D2ABA /* ReorderPalettes3 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E7CCE84B1DC7424900C31BEF /* Build configuration list for PBXNativeTarget "ReorderPalettes" */;
+			buildConfigurationList = E74712C2296FF781001D2ABA /* Build configuration list for PBXNativeTarget "ReorderPalettes3" */;
+			buildPhases = (
+				E74712B7296FF781001D2ABA /* Sources */,
+				E74712BD296FF781001D2ABA /* Frameworks */,
+				E74712C0296FF781001D2ABA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReorderPalettes3;
+			productName = CSKerningClasses;
+			productReference = E74712C5296FF781001D2ABA /* ReorderPalettes.glyphsPlugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+		E7CCE8371DC7424900C31BEF /* ReorderPalettes2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7CCE84B1DC7424900C31BEF /* Build configuration list for PBXNativeTarget "ReorderPalettes2" */;
 			buildPhases = (
 				E7CCE8341DC7424900C31BEF /* Sources */,
 				E7CCE8351DC7424900C31BEF /* Frameworks */,
@@ -116,7 +154,7 @@
 			);
 			dependencies = (
 			);
-			name = ReorderPalettes;
+			name = ReorderPalettes2;
 			productName = CSKerningClasses;
 			productReference = E7CCE8381DC7424900C31BEF /* ReorderPalettes.glyphsPlugin */;
 			productType = "com.apple.product-type.bundle";
@@ -151,12 +189,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E7CCE8371DC7424900C31BEF /* ReorderPalettes */,
+				E7CCE8371DC7424900C31BEF /* ReorderPalettes2 */,
+				E74712B6296FF781001D2ABA /* ReorderPalettes3 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E74712C0296FF781001D2ABA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E74712C1296FF781001D2ABA /* ROPWindowController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E7CCE8361DC7424900C31BEF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -168,6 +215,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E74712B7296FF781001D2ABA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E74712B8296FF781001D2ABA /* ReorderPalettesPlugin.m in Sources */,
+				E74712B9296FF781001D2ABA /* ROPWindowController.m in Sources */,
+				E74712BA296FF781001D2ABA /* ROPTableColumn.m in Sources */,
+				E74712BB296FF781001D2ABA /* ROPPalettePluginManager.m in Sources */,
+				E74712BC296FF781001D2ABA /* ROPPalettePlugin.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E7CCE8341DC7424900C31BEF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -183,6 +242,43 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		E74712C3296FF781001D2ABA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "\"$(HOME)/Library/Application Support/Glyphs 3/Plugins\"";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(HOME)/Library/Application Support/Glyphs 3/Plugins";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_APPS_DIR)/Glyphs 3.app/Contents/Frameworks\"";
+				HEADER_SEARCH_PATHS = "$(HOME)/homebrew/include";
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INSTALL_PATH = /;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.morisawa.$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				WARNING_CFLAGS = "-Wpartial-availability";
+				WRAPPER_EXTENSION = glyphsPlugin;
+			};
+			name = Debug;
+		};
+		E74712C4296FF781001D2ABA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SYSTEM_APPS_DIR)/Glyphs 3.app/Contents/Frameworks\"";
+				HEADER_SEARCH_PATHS = "$(HOME)/homebrew/include";
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
+				INSTALL_PATH = /;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.morisawa.$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				WARNING_CFLAGS = "-Wpartial-availability";
+				WRAPPER_EXTENSION = glyphsPlugin;
+			};
+			name = Release;
+		};
 		E7CCE8491DC7424900C31BEF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -289,19 +385,19 @@
 		E7CCE84C1DC7424900C31BEF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(HOME)/Library/Application Support/Glyphs/Plugins";
+				CONFIGURATION_BUILD_DIR = "\"$(HOME)/Library/Application Support/Glyphs/Plugins\"";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(HOME)/Library/Application Support/Glyphs/Plugins";
 				FRAMEWORK_SEARCH_PATHS = "$(SYSTEM_APPS_DIR)/Glyphs.app/Contents/Frameworks";
 				HEADER_SEARCH_PATHS = "$(HOME)/homebrew/include";
-				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
 				INSTALL_PATH = /;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.morisawa.$(TARGET_NAME)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.morisawa.$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				WARNING_CFLAGS = "-Wpartial-availability";
 				WRAPPER_EXTENSION = glyphsPlugin;
 			};
@@ -310,16 +406,16 @@
 		E7CCE84D1DC7424900C31BEF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = x86_64;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SYSTEM_APPS_DIR)/Glyphs.app/Contents/Frameworks";
 				HEADER_SEARCH_PATHS = "$(HOME)/homebrew/include";
-				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_FILE = "$(PROJECT_NAME)/Info.plist";
 				INSTALL_PATH = /;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.morisawa.$(TARGET_NAME)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.morisawa.$(PROJECT_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				WARNING_CFLAGS = "-Wpartial-availability";
 				WRAPPER_EXTENSION = glyphsPlugin;
 			};
@@ -328,6 +424,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E74712C2296FF781001D2ABA /* Build configuration list for PBXNativeTarget "ReorderPalettes3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E74712C3296FF781001D2ABA /* Debug */,
+				E74712C4296FF781001D2ABA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E7CCE8331DC7424900C31BEF /* Build configuration list for PBXProject "ReorderPalettes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -337,7 +442,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E7CCE84B1DC7424900C31BEF /* Build configuration list for PBXNativeTarget "ReorderPalettes" */ = {
+		E7CCE84B1DC7424900C31BEF /* Build configuration list for PBXNativeTarget "ReorderPalettes2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E7CCE84C1DC7424900C31BEF /* Debug */,

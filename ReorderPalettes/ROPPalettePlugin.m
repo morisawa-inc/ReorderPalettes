@@ -36,12 +36,16 @@ static NSBundle * GetCorrespondingBundleForInstance(id instance, NSArray<NSBundl
         if (principalClass) {
             NSString *className = NSStringFromClass(principalClass);
             if (className && ![mutableClassNames containsObject:className]) {
-                NSObject<GlyphsPalette> *instance = [[principalClass alloc] init];
-                if ([instance respondsToSelector:@selector(loadPlugin)]) [instance loadPlugin];
-                ROPPalettePlugin *plugin = [[[self class] alloc] initWithInstance:instance options:options bundles:[delegate paletteBundles]];
-                if (plugin) {
-                    [mutablePlugins addObject:plugin];
-                    [mutableClassNames addObject:className];
+                @try {
+                    NSObject<GlyphsPalette> *instance = [[principalClass alloc] init];
+                    if ([instance respondsToSelector:@selector(loadPlugin)]) [instance loadPlugin];
+                    ROPPalettePlugin *plugin = [[[self class] alloc] initWithInstance:instance options:options bundles:[delegate paletteBundles]];
+                    if (plugin) {
+                        [mutablePlugins addObject:plugin];
+                        [mutableClassNames addObject:className];
+                    }
+                } @catch (NSException *exception) {
+                    NSLog(@"%@", [exception description]);
                 }
             }
         }

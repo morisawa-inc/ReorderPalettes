@@ -21,7 +21,7 @@ Note that the change cannot be applied to the existing windows, and you must reo
 
 ## Requirements
 
-Tested with Glyphs 2.6.7 on OS X 10.11.
+Tested with Glyphs 2.6.7 and Glyphs 3.1.1 on macOS 10.15.
 
 ## License
 

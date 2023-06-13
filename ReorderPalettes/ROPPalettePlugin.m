@@ -19,19 +19,32 @@ static NSBundle * GetCorrespondingBundleForInstance(id instance, NSArray<NSBundl
 
 @protocol GSMenuProtocol <NSObject>
 - (NSMutableArray<NSBundle *> *)paletteBundles;
+- (NSMutableArray<Class> *)paletteClasses;
+- (NSMutableDictionary<NSString *, NSBundle *> *)pluginBundles;
 @end
 
 @implementation ROPPalettePlugin
 
 + (NSArray<NSBundle *> *)availablePaletteBundles {
-    return [[(id<GSMenuProtocol>)[[NSApplication sharedApplication] delegate] paletteBundles] copy];
+    id<GSMenuProtocol> menu = (id<GSMenuProtocol>)[[NSApplication sharedApplication] delegate];
+    if ([menu respondsToSelector:@selector(paletteClasses)]) {
+        NSMutableArray<NSBundle *> *mutableBundles = [[NSMutableArray alloc] initWithCapacity:0];
+        NSSet<Class> *paletteClasses = [NSSet setWithArray:[menu paletteClasses]];
+        for (NSBundle *bundle in [[menu pluginBundles] allValues]) {
+            if ([paletteClasses containsObject:[bundle principalClass]]) {
+                [mutableBundles addObject:bundle];
+            }
+        }
+        return [mutableBundles copy];
+    }
+    return [[menu paletteBundles] copy];
 }
 
 + (NSArray<ROPPalettePlugin *> *)availablePalettePluginsWithOptions:(ROPPalettePluginEnumeratingOptions)options {
     NSMutableArray <ROPPalettePlugin *> *mutablePlugins = [[NSMutableArray alloc] initWithCapacity:0];
-    id<GSMenuProtocol> delegate = (id<GSMenuProtocol>)[[NSApplication sharedApplication] delegate];
     NSMutableSet<NSString *> *mutableClassNames = [[NSMutableSet alloc] initWithCapacity:0];
-    for (NSBundle *bundle in [delegate paletteBundles]) {
+    NSArray<NSBundle *> *availablePaletteBundles = [[self class] availablePaletteBundles];
+    for (NSBundle *bundle in availablePaletteBundles) {
         Class principalClass = [bundle principalClass];
         if (principalClass) {
             NSString *className = NSStringFromClass(principalClass);
@@ -39,7 +52,7 @@ static NSBundle * GetCorrespondingBundleForInstance(id instance, NSArray<NSBundl
                 @try {
                     NSObject<GlyphsPalette> *instance = [[principalClass alloc] init];
                     if ([instance respondsToSelector:@selector(loadPlugin)]) [instance loadPlugin];
-                    ROPPalettePlugin *plugin = [[[self class] alloc] initWithInstance:instance options:options bundles:[delegate paletteBundles]];
+                    ROPPalettePlugin *plugin = [[[self class] alloc] initWithInstance:instance options:options bundles:availablePaletteBundles];
                     if (plugin) {
                         [mutablePlugins addObject:plugin];
                         [mutableClassNames addObject:className];
